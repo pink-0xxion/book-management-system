@@ -1,0 +1,21 @@
+<?php 
+session_start();
+$email=$_POST['email'];
+$password=$_POST['password'];
+$con=mysqli_connect('localhost','root');
+mysqli_select_db($con,'BRM_DB');
+$q="select * from user where email='$email' && password='$password'";
+$result=mysqli_query($con,$q);
+$num=mysqli_num_rows($result);
+	   for($i=1;$i<=$num;$i++)
+		   $row=mysqli_fetch_array($result);  
+if($num==1)
+{
+$_SESSION['fname']=$row['fname'];
+header('location:http://localhost:8090/book/Home.php');
+}
+else
+{
+	header('location:http://localhost:8090/book/Login.php');
+}
+?>
